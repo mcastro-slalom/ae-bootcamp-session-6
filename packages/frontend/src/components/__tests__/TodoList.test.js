@@ -32,13 +32,13 @@ describe('TodoList Component', () => {
 
   it('should render empty state when todos array is empty', () => {
     render(<TodoList todos={[]} {...mockHandlers} isLoading={false} />);
-    
+
     expect(screen.getByText(/No todos yet. Add one to get started!/)).toBeInTheDocument();
   });
 
   it('should render all todos when provided', () => {
     render(<TodoList todos={mockTodos} {...mockHandlers} isLoading={false} />);
-    
+
     expect(screen.getByText('Todo 1')).toBeInTheDocument();
     expect(screen.getByText('Todo 2')).toBeInTheDocument();
   });
@@ -47,16 +47,66 @@ describe('TodoList Component', () => {
     const { container } = render(
       <TodoList todos={mockTodos} {...mockHandlers} isLoading={false} />
     );
-    
+
     const cards = container.querySelectorAll('.todo-card');
     expect(cards).toHaveLength(2);
   });
 
   it('should pass handlers to TodoCard components', () => {
     render(<TodoList todos={mockTodos} {...mockHandlers} isLoading={false} />);
-    
+
     // Verify that edit buttons exist for each todo
     expect(screen.getAllByLabelText(/Edit/)).toHaveLength(2);
     expect(screen.getAllByLabelText(/Delete/)).toHaveLength(2);
+  });
+
+  it('should show an overdue label for incomplete, past-due items', () => {
+    const overdueTodo = {
+      id: 3,
+      title: 'Past due',
+      dueDate: '2000-01-01',
+      completed: 0,
+      createdAt: '2025-11-01T00:00:00Z'
+    };
+
+    render(
+      <TodoList
+        todos={[overdueTodo]}
+        todayKey="2099-12-31"
+        {...mockHandlers}
+        isLoading={false}
+      />
+    );
+
+    expect(screen.getByText('Overdue')).toBeInTheDocument();
+    expect(document.querySelector('.todo-card.overdue')).toBeInTheDocument();
+  });
+
+  it('should not show overdue state for completed or future-due items', () => {
+    const completedTodo = {
+      id: 4,
+      title: 'Completed late task',
+      dueDate: '2000-01-01',
+      completed: 1,
+      createdAt: '2025-11-01T00:00:00Z'
+    };
+    const futureTodo = {
+      id: 5,
+      title: 'Future task',
+      dueDate: '2099-12-31',
+      completed: 0,
+      createdAt: '2025-11-01T00:00:00Z'
+    };
+
+    render(
+      <TodoList
+        todos={[completedTodo, futureTodo]}
+        todayKey="2025-12-31"
+        {...mockHandlers}
+        isLoading={false}
+      />
+    );
+
+    expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
   });
 });

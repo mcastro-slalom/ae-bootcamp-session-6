@@ -12,8 +12,8 @@
 
 **Purpose**: Confirm the frontend structure and test scaffolding needed for the overdue work.
 
-- [ ] T001 [P] Confirm the existing React frontend layout and test locations in packages/frontend/src/App.js, packages/frontend/src/components/TodoList.js, and packages/frontend/src/components/TodoCard.js
-- [ ] T002 [P] Create the overdue date utility test scaffold in packages/frontend/src/utils/__tests__/todoDateUtils.test.js
+- [X] T001 [P] Confirm the existing React frontend layout and test locations in packages/frontend/src/App.js, packages/frontend/src/components/TodoList.js, and packages/frontend/src/components/TodoCard.js
+- [X] T002 [P] Create the overdue date utility test scaffold in packages/frontend/src/utils/__tests__/todoDateUtils.test.js
 
 ---
 
@@ -21,9 +21,9 @@
 
 **Purpose**: Establish the reusable local-date logic and visual treatment required before the overdue story can be implemented.
 
-- [ ] T003 Create the shared local-date helper in packages/frontend/src/utils/todoDateUtils.js
-- [ ] T004 [P] Add the current local-date refresh logic and resume/midnight recomputation in packages/frontend/src/App.js
-- [ ] T005 [P] Define the overdue visual styling and accessible text treatment in packages/frontend/src/App.css
+- [X] T003 Create the shared local-date helper in packages/frontend/src/utils/todoDateUtils.js
+- [X] T004 [P] Add the current local-date refresh logic and resume/midnight recomputation in packages/frontend/src/App.js
+- [X] T005 [P] Define the overdue visual styling and accessible text treatment in packages/frontend/src/App.css
 
 **Checkpoint**: Foundation ready - User Story 1 can now proceed independently.
 
@@ -37,17 +37,17 @@
 
 ### Tests for User Story 1
 
-- [ ] T006 [P] [US1] Add overdue comparison boundary tests for past, current, and future local dates in packages/frontend/src/utils/__tests__/todoDateUtils.test.js
-- [ ] T007 [P] [US1] Add rendered list tests for the visible overdue label and non-color marker in packages/frontend/src/components/__tests__/TodoList.test.js
+- [X] T006 [P] [US1] Add overdue comparison boundary tests for past, current, and future local dates in packages/frontend/src/utils/__tests__/todoDateUtils.test.js
+- [X] T007 [P] [US1] Add rendered list tests for the visible overdue label and non-color marker in packages/frontend/src/components/__tests__/TodoList.test.js
 
 ### Implementation for User Story 1
 
-- [ ] T008 [P] [US1] Implement `getTodayKey`, `isTodoOverdue`, and related date guards in packages/frontend/src/utils/todoDateUtils.js
-- [ ] T009 [US1] Update packages/frontend/src/App.js to compute and refresh the local current date and pass the derived overdue data through the list flow
-- [ ] T010 [US1] Update packages/frontend/src/components/TodoList.js to derive the overdue state per todo and forward it to each card
-- [ ] T011 [US1] Update packages/frontend/src/components/TodoCard.js to render the explicit "Overdue" label and a non-color visual distinction while keeping the existing todo actions intact
-- [ ] T012 [US1] Apply the overdue styling and accessibility treatment in packages/frontend/src/App.css
-- [ ] T013 [US1] Run the frontend Jest suite and fix any regressions in packages/frontend/src/components/__tests__ and packages/frontend/src/utils/__tests__
+- [X] T008 [P] [US1] Implement `getTodayKey`, `isTodoOverdue`, and related date guards in packages/frontend/src/utils/todoDateUtils.js
+- [X] T009 [US1] Update packages/frontend/src/App.js to compute and refresh the local current date and pass the derived overdue data through the list flow
+- [X] T010 [US1] Update packages/frontend/src/components/TodoList.js to derive the overdue state per todo and forward it to each card
+- [X] T011 [US1] Update packages/frontend/src/components/TodoCard.js to render the explicit "Overdue" label and a non-color visual distinction while keeping the existing todo actions intact
+- [X] T012 [US1] Apply the overdue styling and accessibility treatment in packages/frontend/src/App.css
+- [X] T013 [US1] Run the frontend Jest suite and fix any regressions in packages/frontend/src/components/__tests__ and packages/frontend/src/utils/__tests__
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and independently testable.
 
@@ -57,9 +57,9 @@
 
 **Purpose**: Final validation, consistency checks, and release-readiness review.
 
-- [ ] T014 [P] Review the quickstart validation plan in specs/001-overdue-todo-items/quickstart.md and confirm the overdue UI matches the browser manual checks
-- [ ] T015 [P] Run the frontend production build with `npm run build --workspace=frontend` in packages/frontend/package.json to confirm the package still compiles cleanly
-- [ ] T016 Confirm the overdue feature preserves existing create, edit, toggle, and delete behaviors across packages/frontend/src/App.js, packages/frontend/src/components/TodoList.js, and packages/frontend/src/components/TodoCard.js
+- [X] T014 [P] Review the quickstart validation plan in specs/001-overdue-todo-items/quickstart.md and confirm the overdue UI matches the browser manual checks
+- [X] T015 [P] Run the frontend production build with `npm run build --workspace=frontend` in packages/frontend/package.json to confirm the package still compiles cleanly
+- [X] T016 Confirm the overdue feature preserves existing create, edit, toggle, and delete behaviors across packages/frontend/src/App.js, packages/frontend/src/components/TodoList.js, and packages/frontend/src/components/TodoCard.js
 
 ---
 

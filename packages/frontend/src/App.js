@@ -4,6 +4,7 @@ import TodoList from './components/TodoList';
 import ThemeToggle from './components/ThemeToggle';
 import ConfirmDialog from './components/ConfirmDialog';
 import TodoService from './services/todoService';
+import { getTodayKey, getNextMidnightDelay } from './utils/todoDateUtils';
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     // Default to light theme
     return 'light';
   });
+  const [todayKey, setTodayKey] = useState(getTodayKey);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deletingTodoId, setDeletingTodoId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -27,6 +29,49 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('todoAppTheme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    let midnightTimer;
+
+    const refreshDateState = () => {
+      setTodayKey(getTodayKey());
+    };
+
+    const scheduleNextRefresh = () => {
+      if (midnightTimer) {
+        clearTimeout(midnightTimer);
+      }
+
+      midnightTimer = setTimeout(() => {
+        refreshDateState();
+        scheduleNextRefresh();
+      }, getNextMidnightDelay());
+    };
+
+    const handleResume = () => {
+      refreshDateState();
+      scheduleNextRefresh();
+    };
+
+    scheduleNextRefresh();
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        handleResume();
+      }
+    };
+
+    window.addEventListener('pageshow', handleResume);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      if (midnightTimer) {
+        clearTimeout(midnightTimer);
+      }
+      window.removeEventListener('pageshow', handleResume);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   // Fetch todos on mount
   useEffect(() => {
@@ -147,6 +192,7 @@ function App() {
           {!loading && (
             <TodoList
               todos={todos}
+              todayKey={todayKey}
               onToggle={handleToggleTodo}
               onEdit={handleEditTodo}
               onDelete={handleDeleteTodo}
