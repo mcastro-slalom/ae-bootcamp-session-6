@@ -7,10 +7,10 @@
 ## Summary
 
 Identify overdue todos in the React list by comparing each incomplete todo's
-canonical `YYYY-MM-DD` due-date string with the browser's current local calendar
-date. Keep overdue status derived rather than persisted, refresh it at local
-midnight and when the page resumes, and display a text label plus a non-color
-visual distinction. No API, database, or new dependency changes are needed.
+`YYYY-MM-DD` due-date string with the browser's current local calendar-date key.
+Keep overdue status derived rather than persisted, refresh it at local midnight
+and when the page resumes, and display a text label plus a non-color visual
+distinction. No API, database, or new dependency changes are needed.
 
 ## Technical Context
 
@@ -64,7 +64,8 @@ specs/001-overdue-todo-items/
 ├── research.md          # Date handling and design decisions
 ├── data-model.md        # Existing todo fields and derived overdue status
 ├── quickstart.md        # Feature validation guide
-├── contracts/           # Not needed: no external interface changes
+├── contracts/
+│   └── todo-list-overdue-ui.md
 └── tasks.md             # Created later by /speckit-tasks
 ```
 
@@ -91,10 +92,11 @@ packages/backend/src/
 
 **Structure Decision**: Keep behavior in the frontend because overdue is a
 user-local, date-derived display status. Put calendar-date conversion and
-comparison in a small frontend utility; update the list's current local date
-at midnight and when the page resumes, then pass that date through the existing
-list/card presentation path. Backend persistence and API contracts remain
-unchanged.
+comparison in a small frontend utility. Keep the current local date key in
+application state, update it at the next local midnight and on page-resume
+events, then pass it through the existing list/card presentation path. The
+user-facing list behavior is specified in `contracts/todo-list-overdue-ui.md`;
+backend persistence and API contracts remain unchanged.
 
 ## Complexity Tracking
 

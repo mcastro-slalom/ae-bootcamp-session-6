@@ -27,3 +27,8 @@ determine its calendar day. Refresh `today` at local midnight and when the
 browser page resumes so the derived status does not remain stale while the
 list is open or suspended.
 
+### Derived-state changes
+
+The overdue value is recalculated when the completion state or due date changes
+and when the user's local calendar date advances. Calendar rollover changes
+only frontend presentation; it does not persist a field or issue an API write.

@@ -45,6 +45,9 @@ Expected result: the frontend production build completes without errors.
 5. Leave a todo due today in the open list through the local date change or
    simulate the date rollover with the automated clock test. Confirm it becomes
    overdue without editing the todo.
+6. Hide the page across a date change and restore it. Confirm the overdue
+   status reflects the current local date.
 
 For the entity shape and derived rule, see [data-model.md](./data-model.md).
-
+For the exact user-visible behavior, see
+[contracts/todo-list-overdue-ui.md](./contracts/todo-list-overdue-ui.md).
