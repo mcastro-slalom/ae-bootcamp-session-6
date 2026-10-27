@@ -8,6 +8,12 @@
 
 **Input**: User description: "As a todo application user, I want to easily identify and distinguish overdue tasks in my todo list so that I can prioritize my work and quickly see which tasks are past their due date. Users need a clear, visual way to identify todos that have not been completed by their due date. Automated tests must cover overdue determination logic and its display, following the existing Jest patterns in the repository."
 
+## Clarifications
+
+### Session 2026-10-27
+
+- Q: Which calendar date should determine whether a todo is overdue when the user and server are in different time zones? → A: The user's local calendar date.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Identify overdue todos (Priority: P1)
@@ -38,8 +44,8 @@ As a todo application user, I want overdue, incomplete tasks to be clearly disti
 
 ### Functional Requirements
 
-- **FR-001**: The application MUST identify a todo as overdue when it is incomplete and its due date is earlier than the current calendar date.
-- **FR-002**: The application MUST NOT identify a todo as overdue when it is complete, has no due date, or has a due date equal to or later than the current calendar date.
+- **FR-001**: The application MUST identify a todo as overdue when it is incomplete and its due date is earlier than the current calendar date in the user's local time zone.
+- **FR-002**: The application MUST NOT identify a todo as overdue when it is complete, has no due date, or has a due date equal to or later than the current calendar date in the user's local time zone.
 - **FR-003**: The todo list MUST make overdue todos visually distinct and provide a clear text label identifying them as overdue.
 - **FR-004**: The overdue distinction MUST remain understandable without relying on color alone.
 - **FR-005**: The application MUST reflect the change to overdue status when the calendar date advances, without requiring the user to edit the todo.
@@ -47,7 +53,7 @@ As a todo application user, I want overdue, incomplete tasks to be clearly disti
 
 ### Key Entities
 
-- **Todo**: A task with a completion state and an optional due date. Its overdue status is determined by its completion state and due date relative to the current calendar date.
+- **Todo**: A task with a completion state and an optional due date. Its overdue status is determined by its completion state and due date relative to the current calendar date in the user's local time zone.
 
 ## Success Criteria *(mandatory)*
 
@@ -59,6 +65,6 @@ As a todo application user, I want overdue, incomplete tasks to be clearly disti
 
 ## Assumptions
 
-- Due dates are interpreted at calendar-date granularity: a todo becomes overdue on the day after its due date, not later on the due date itself.
+- Due dates are interpreted at calendar-date granularity in the user's local time zone: a todo becomes overdue on the day after its due date, not later on the due date itself.
 - Existing todo creation, editing, completion, and list behavior remain unchanged apart from the overdue indication.
 - Automated coverage will use the repository's established test conventions for both the overdue rule and its list presentation.
